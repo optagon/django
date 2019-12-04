@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Chatbox{% endblock %}
+{% block main %}
+	<div id = "channel_list">
+		<form id = "starter_form">
+			<div class = "form-group">
+			</div>
+			<button id = "starter_button" type = "submit" class = "btn btn-primary"></button>
+		</form>
+		<form id = "create_channel" action="/index">
+			<input type = "text" id = "channel" name = "channel" required class = "form-control">		
+			<button id = "create_button" type = "submit" class = "btn btn-primary">Create</button>
+		</form>
+		<header>Channels</header>
+		<ul id = "change_channel">
+			{% for my_channel in channels %}
+			<li class = "my_channel" data-channel = "{{my_channel}}">{{ my_channel }}</li>
+			{% endfor %}
+		</ul>
+	</div>
+	
+	<div id = "welcome">
+		<h1>Project 2</h1>
+		
+	</div>
+	<div id = "chat">
+		<h1 id = "chathead"></h1>
+		<ul id = "messages">
+		</ul>
+		<textarea  type = "text" id = "my_message" required autofocus rows="8" cols="50"></textarea> 
+		<button id = "sendbutton" class = "btn btn-primary">Send</button>
+		<br>
+		<br>
+		<button type = "submit" id = "leave_channel" class = "btn btn-primary">Leave channel</button>
+	</div>
+	
+{% endblock %}
