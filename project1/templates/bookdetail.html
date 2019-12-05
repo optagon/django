@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Found book
+{% endblock %}
+
+{% block content %}
+
+<h3>Book Detail</h3>
+<div class="container">
+	<ul>
+		<li><h2>{{info[0]['title']}}</h2></li>
+		<li><h3>{{info[0]['author']}}</h3></li>
+		<li><h3>{{info[0]['year']}}</h3></li>
+		<li><h4>{{info[0]['isbn']}}</h4></li>
+	</ul>
+	</form>
+	<h4>This book already has : {{info[1]['work_ratings_count']}} reviews with an avera rating of {{info[1]['average_rating']}} stars</h4>
+
+	<form method="post">
+		<select id="rating" name="rating">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+		</select>
+		<textarea autofocus class="form-control" name="comment" type="text"></textarea>
+		<button class="btn btn-primary" type="submit">Submit</button>
+	</form>
+	<div class="container">
+		<ul>
+			{% for review in reviews %}
+			<h6>Someone rated this book with {{review['rating']}} stars</h6>
+			<p>{{review['comment']}}</p>
+				
+			{% endfor %}
+		</ul>
+	</div>
+	</div>
+{% endblock %}

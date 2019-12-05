@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Login
+{% endblock %}
+
+{% block content %}
+
+	<div class="container">
+	<form action="/login" method="post">
+		<a>Username</a><input autofocus class="form-control" name="username" type="text"/>
+		<a>Password</a><input class="form-control" name="password" type="password"/>
+
+		<button class="btn btn-primary" type="submit">Log In</button>
+	</form>
+	<a href="/register">Register</a>
+</div>
+{% endblock %}
