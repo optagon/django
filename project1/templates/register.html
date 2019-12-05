@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Register
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<h3>Register</h3>
+	<form action="/register" method="post">
+		<a>Username</a><input autofocus class="form-control" name="username" type="text"/>
+		<a>Password</a><input class="form-control" name="password" type="password"/>
+		<a>Confirm Password</a><input class="form-control" name="confirmation" type="password"/>
+		<div class="center">
+			<button class="btn btn-primary" type="submit">Register</button>
+			<a href="/login">Already have an account? Log in!</a>
+		</div>
+	</form>
+</div>
+
+{% endblock %}
