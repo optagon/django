@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Channel{% endblock %}
+{% block main %}
+<div id = "channel_list" width=500px>
+		<form id = "starter_form">
+			<div class = "form-group">
+				<input type = "text" name = "name" id = "name" class = "form-control">
+			</div>
+			<button id = "starter_button" type = "submit" class = "btn btn-primary"></button>
+		</form>
+		<form id = "create_channel" action="/index">
+			<input type = "text" id = "channel" name = "channel" required class = "form-control">		
+			<button id = "create_button" type = "submit" class = "btn btn-primary">Create</button>
+		</form>
+		<header>Channels</header>
+		<ul id = "change_channel">
+			{% for my_channel in channels %}
+			<li class = "my_channel" data-channel = "{{my_channel}}">{{ my_channel }}</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endblock %}
