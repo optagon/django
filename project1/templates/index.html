@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Home
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<h3>Find a book</h3>
+	<form action="/search" method="GET">
+		<input type="text" class="form-control" name="book">
+		<button class="btn btn-primary" type="submit">Search</button>
+	</form>	
+
+{% endblock %}
