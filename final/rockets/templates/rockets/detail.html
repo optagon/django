@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}	
+		{% load staticfiles %}
+		<img src="../static/rockets/{{rocket.image }}" alt=""><br>
+		<h2>{{rocket.name}}</h2> <br>	
+		<h4>{{rocket.manufacture}}</h4><br>
+		<h4>{{rocket.origin}}</h4><br>
+        
+        <ul>
+        <li> Thrust: {{rocket.thrust}} kN</li> <br>
+        <li> Payload: {{rocket.payload}} Kg</li><br>
+        <p>{{rocket.description}}<p><br>
+
+     	<form method="POST">
+     		{% csrf_token %}
+     		<div class="form-group">
+     		<label for="launchDate">Launch Date</label>
+  			<input type="date" name="launchDate"><br>
+  			<label for="orbit">Destination</label>
+  			<select class="form-control" id="orbit">
+
+  			<option value="low">Low Orbit</option>
+  			<option value="geo">Geostationary Orbit</option>
+  			<option value="high">High Orbit</option>
+ 			<option value="moon">Moon</option>
+  			<option value="mars">Mars</option>
+			</select><br>
+
+  			<label for="site">Site</label>
+  			<select class="form-control" id="site">
+  			<option value="baikonur">Baikonur</option>
+  			<option value="plesetsk">Plesetsk</option>
+  			<option value="capeCanaveral">Cape Canaveral</option>
+ 			<option value="vanderberg">Vanderberg</option>
+  			<option value="jiuquan">Jiuquan</option>
+			</select><br>
+
+  			Your Name<br>
+  			<input type="text" name="name"><br>
+  			<label for="note">Note</label>
+    		<textarea class="form-control" id="note" rows="5"></textarea>
+  			
+  		</div>
+		</form>
+		<a class="btn btn-primary" href={% url "index" %}>Submit</a>
+{% endblock %}
