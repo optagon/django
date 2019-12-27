@@ -1,0 +1,55 @@
+U
+
+    [ÖŰ][  ă                   @   s   d dl Z d dlZd dlZd dlmZmZmZmZmZ d dl	m
+Z
+ d dlmZ d dl
+mZ d dlmZmZ d dlmZmZ d dlmZmZmZmZ eeZe  d	ˇsŞed
+‚dejd< d
+ejd< ee ee  d	ˇZeeedŤZdd„ Ze dˇedd„ Z ejdddgdŤdd„ Z!ejdddgdŤdd„ Z"e dˇdd „ Z#ejd!dgdŤed"d#„ Z$ejd$ddgdŤed%d&„ Z%ejd'dgdŤed(d)„ Z&dS )*é    N)ÚFlaskÚsessionÚrender_templateÚredirectÚrequest©Úwraps)ÚSession)Ú
+create_engine)Úscoped_sessionÚsessionmaker)Úcheck_password_hashÚgenerate_password_hash)Úgr   r   Úurl_forZDATABASE_URLzDATABASE_URL is not setFZSESSION_PERMANENTÚ
+filesystemZSESSION_TYPE)Úbindc                    s   t  ‡ fdd„}|S )Nc                     s    t  dˇd krtdS  | |ŽS )NÚuser_idú/login)r   Úgetr   )ÚargsÚkwargs©Úf© ú>C:\Users\Kopta\Documents\cs50\project1\project1\application.pyÚdecorated_function   s    z*login_required.<locals>.decorated_functionr   )r   r   r   r   r   Úlogin_required   s    r   ú/c                   C   s   t dS )Nz
+index.html)r   r   r   r   r   Úindex$   s    r   r   ÚGETÚPOST)Úmethodsc                  C   s„   t  ˇ  tj dˇ} zRtjdkrZt dd| iˇ}| ˇ }|d t d< |d t d< t	dW S t
+d	W S W n   t
+d
+ddŤ Y S X d S )
+NÚusernamer!   z.SELECT * FROM users WHERE username = :usernamer   r   é   Úpasswordr   z
+login.htmlú/error.htmlzYou don't have an account yet©Úmessage)r   Úclearr   Úformr   ÚmethodÚdbÚexecuteÚfetchoner   r   )r#   ÚradaÚresultr   r   r   Úlogin)   s    
+
+r1   z	/registerc                  C   s¶   t  ˇ  tjdkrŞtj dˇtj dˇkr˛ttj dˇdddŤ} zNt dtj dˇ| d	śˇ t 	ˇ  zt
+d
+W W S    tddd
+Ť Y W S X W q˛   tddd
+Ť Y S X ntdS d S )Nr!   r%   Zconfirmationz
+pbkdf2:sha256é   )r+   Zsalt_lengthzDINSERT INTO users (username, password) VALUES (:username, :password)r#   )r#   r%   r   r&   z Passwords don't match, try againr'   zThis username is already takenz/register.html)r   r)   r   r+   r*   r   r   r,   r-   Úcommitr   r   )Zhashedr   r   r   Úregister<   s    
+r4   z/logoutc                   C   s   t  ˇ  tdS )Nr   )r   r)   r   r   r   r   r   ÚlogoutS   s    r5   z/searchc                  C   s~   t j dˇstdddŤS dt j dˇ d } |  ˇ } t dd| iˇ}z| ˇ }W n  tk
+rp   tdddŤ Y S X td	|d
+ŤS )NÚbookú
+error.htmlz-Please specify what book you want to look forr'   ú%zmSELECT isbn, title, author, year FROM books WHERE isbn LIKE :query OR title LIKE :query OR author LIKE :queryÚqueryzNo such a book was foundz
+query.html)Úbooks)	r   r   r   r   Útitler,   r-   ÚfetchallZbook_not_found)r9   r/   r:   r   r   r   Úsearch\   s    r=   z/book/<isbn>c           
+      C   sZ  t  dd| iˇ}| ˇ }|dkr,tdddŤS | ˇ }t  dd| iˇ}| ˇ }tjdkrştd	 }tj d
+ˇ}tj dˇ}z(t  d|| ||d
+śˇ t  	ˇ  tdW S    tdddŤ Y S X nśt  dd| iˇ}| ˇ }t
+ dˇ}tjd|| dśdŤ}	|	 
+ˇ }
+|
+d d }
+| |
+ˇ t  dd| iˇ}| ˇ }|d }t  dd|iˇ}| ˇ }td|||dŤS d S )Nz<SELECT isbn, title, author, year FROM books WHERE isbn=:isbnÚisbnr   r7   z-Please tell us what book you want to look forr'   z4SELECT comment, rating FROM reviews WHERE isbn=:isbnr!   r   ÚcommentÚratingz`INSERT INTO reviews (user_id, isbn, comment, rating) VALUES (:user_id, :isbn, :comment, :rating))r   r>   r?   r@   zthanks.htmlz%You have already submmitted a review!z>SELECT isbn, title, author, year FROM books WHERE isbn = :isbnZ
+GOODREADS_KEYz1https://www.goodreads.com/book/review_counts.json)ÚkeyZisbns)Úparamsr:   z)SELECT isbn FROM books WHERE isbn = :isbnzzSELECT users.username, comment, rating FROM users INNER JOIN reviews ON users.user_id = reviews.user_id WHERE isbn = :bookr6   zbookdetail.html)r6   ÚinfoÚreviews)r,   r-   r<   r   r   r+   r   r*   r   r3   ÚosÚgetenvÚrequestsÚjsonÚappendr.   )
+r>   r/   ZvysledekrC   rD   ZcurrentUserr?   r@   rA   r9   Úresponser6   Úresultsr   r   r   r6   o   s<    
+
+
+
+r6   z/api/<isbn>c                 C   sV   t  dd| iˇ}|jdkr&tdddŤS | ˇ }t| ˇ }td|d  |d< t|S )	NzÚSELECT title, author, year, isbn, COUNT(reviews.id) as review_count, AVG(reviews.rating) as average_score FROM books INNER JOIN reviews ON books.isbn = reviews.isbn WHERE isbn = :isbn GROUP BY title, author, year, isbnr>   r$   r7   zcannot display the resultsr'   z%.2fZ
+average_score)r,   r-   ZrowcountÚjsonifyr.   ÚdictÚitemsÚfloat)r>   r/   Útmpr0   r   r   r   Úapi_callś   s    
+rQ   )'rE   rH   rG   Úflaskr   r   r   r   r   Ú	functoolsr   Z
+flask_sessionr	   Z
+sqlalchemyr
+   Zsqlalchemy.ormr   r   Zwerkzeug.securityr
+   r   r   r   Ú__name__ÚapprF   ÚRuntimeErrorÚconfigZenginer,   r   Úrouter   r1   r4   r5   r=   r6   rQ   r   r   r   r   Ú<module>   sD   
+
+
+
+
+
++

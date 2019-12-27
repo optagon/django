@@ -1,0 +1,22 @@
+
+body {
+  table {
+    background: blue;
+    margin: 10%;
+    padding: 10%;
+  }
+    header {
+        background: grey;
+        font-size: 17px;
+        text-decoration-color: aliceblue;
+        color: white;
+    }
+
+  li { display: inline-block; }
+
+  a {
+    display: block;
+    padding: 6px 12px;
+    text-decoration: none;
+  }
+}
