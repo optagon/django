@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'style/css/style.css' %}" type="text/css">
+  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rockets</title>
+</head>
+<body>
+	<div class="nav">
+    <nav>
+        
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="button " href={% url "index" %}>Home</a>
+    </div>
+  </div>
+</nav>
+</div>
+
+
+    </nav>
+    <div class="content">
+    	<div class="container">
+    		<div class="container">
+    {% block content %}
+
+    {% endblock %}
+    </div>
+    </div>
+</div>
+   
+</body>
+</html>
