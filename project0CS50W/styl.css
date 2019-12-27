@@ -1,0 +1,17 @@
+body table {
+  background: blue;
+  margin: 10%;
+  padding: 10%; }
+body header {
+  background: grey;
+  font-size: 17px;
+  text-decoration-color: aliceblue;
+  color: white; }
+body li {
+  display: inline-block; }
+body a {
+  display: block;
+  padding: 6px 12px;
+  text-decoration: none; }
+
+/*# sourceMappingURL=styl.css.map */
