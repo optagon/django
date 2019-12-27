@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Found book
+{% endblock %}
+
+{% block content %}
+	{% for book in books %}
+	<div class="container">
+	<div class="card border-secondary mb-3" style="max-width: 40rem;">
+	
+			<a href="/book/{{book['isbn']}}"><h1>{{book['title']}}</h1></a>
+			<h5>{{book['author']}}</h5>
+			<a>Published in </a>{{book['year']}}
+			<a>isbn: {{book['isbn']}}</a>
+		
+	</div>
+	</div>	
+	{% endfor %}
+{% endblock %}
