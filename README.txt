@@ -1,1 +1,1 @@
-Projects for CS50W
+Projects for SDU
